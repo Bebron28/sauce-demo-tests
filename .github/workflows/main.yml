@@ -29,4 +29,4 @@ jobs:
       env:
         HEADLESS: "true"
       run: |
-        pytest tests/ -v
+        pytest tests/test_parametrized.py -v

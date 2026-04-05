@@ -1,1 +1,32 @@
+name: Automated Tests
 
+on:
+  push:
+    branches: [ main, master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+    
+    - name: Install dependencies
+      run: |
+        pip install selenium pytest allure-pytest webdriver-manager faker behave
+    
+    - name: Setup Chrome
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y google-chrome-stable
+    
+    - name: Run tests
+      env:
+        HEADLESS: "true"
+      run: |
+        pytest tests/ -v
